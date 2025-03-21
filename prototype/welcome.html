@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎使用 - 天气OOTD</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .welcome-bg {
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            height: 100vh;
+        }
+        .welcome-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+        .welcome-illustration {
+            max-width: 200px;
+            margin: 0 auto 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 微信小程序状态栏 -->
+    <div class="wx-status-bar">
+        <div class="text-center w-full">天气OOTD</div>
+    </div>
+
+    <div class="welcome-bg flex flex-col justify-center items-center p-5">
+        <div class="welcome-card slide-up">
+            <div class="welcome-illustration">
+                <img src="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="欢迎插图" class="w-full">
+            </div>
+            
+            <h1 class="text-2xl font-bold text-center mb-6">欢迎使用天气OOTD</h1>
+            <p class="text-gray-600 text-center mb-8">让我们帮你完善个人信息，为你推荐最适合的穿搭风格</p>
+            
+            <form class="guide-form">
+                <div class="form-item">
+                    <label class="form-label">你所在的城市</label>
+                    <select class="form-select">
+                        <option value="">请选择城市</option>
+                        <option value="beijing">北京</option>
+                        <option value="shanghai">上海</option>
+                        <option value="guangzhou">广州</option>
+                        <option value="shenzhen">深圳</option>
+                        <option value="hangzhou">杭州</option>
+                        <option value="chengdu">成都</option>
+                        <option value="nanjing">南京</option>
+                        <option value="wuhan">武汉</option>
+                    </select>
+                </div>
+                
+                <div class="form-item">
+                    <label class="form-label">性别</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="gender" value="male" class="mr-2">
+                            <span>男生</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="gender" value="female" class="mr-2">
+                            <span>女生</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-item">
+                    <label class="form-label">个人特征描述</label>
+                    <textarea class="form-input" rows="3" placeholder="比如：喜欢运动，偏爱宽松的衣服..."></textarea>
+                </div>
+                
+                <button type="button" class="primary-btn w-full mt-6" onclick="window.location.href='ootd.html'">
+                    完成设置
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

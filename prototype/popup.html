@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOTD弹窗 - 天气OOTD</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100vh;
+        }
+        
+        /* 覆盖弹窗样式，使其在这个页面默认显示 */
+        .popup {
+            transform: translateY(0);
+            height: 85vh;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        /* 轮播图样式加强 */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 16px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .outfit-detail {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .outfit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .outfit-icon {
+            width: 24px;
+            color: #35c8fa;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .share-button {
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            padding: 10px 20px;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-icon {
+            margin-right: 6px;
+            color: #4a90e2;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup">
+        <div class="popup-header">
+            <h3 class="font-medium">今日穿搭推荐</h3>
+            <span class="popup-close" onclick="window.close()">&times;</span>
+        </div>
+        <div class="popup-body">
+            <div class="bg-blue-50 text-blue-800 p-3 rounded-lg mb-4 text-sm">
+                <i class="fas fa-cloud-sun mr-2"></i>
+                今日天气：北京 23° 晴朗 | 风格：温柔风
+            </div>
+            
+            <p class="text-gray-700 mb-4">
+                <b>AI穿搭建议：</b><br>
+                温柔风格穿搭非常适合今天的天气。建议选择轻薄面料的衣物，柔和的颜色能展现温柔气质，同时注意防晒。
+            </p>
+            
+            <!-- 穿搭详情 -->
+            <div class="outfit-detail">
+                <h4 class="font-medium mb-3">穿搭细节</h4>
+                
+                <div class="outfit-item">
+                    <div class="outfit-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div>浅蓝色宽松短袖上衣</div>
+                </div>
+                
+                <div class="outfit-item">
+                    <div class="outfit-icon">
+                        <i class="fas fa-socks"></i>
+                    </div>
+                    <div>米色百褶半身裙</div>
+                </div>
+                
+                <div class="outfit-item">
+                    <div class="outfit-icon">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                    <div>白色平底鞋或浅色帆布鞋</div>
+                </div>
+                
+                <div class="outfit-item">
+                    <div class="outfit-icon">
+                        <i class="fas fa-hat-cowboy"></i>
+                    </div>
+                    <div>米色宽檐草帽（防晒）</div>
+                </div>
+                
+                <div class="outfit-item">
+                    <div class="outfit-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div>简约珍珠耳环，精致项链</div>
+                </div>
+            </div>
+            
+            <!-- 轮播图 -->
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1608234808654-2a8875faa7fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="温柔风穿搭示例1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1616445156427-893939a61a41?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="温柔风穿搭示例2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="温柔风穿搭示例3">
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="indicator active"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button class="primary-btn flex-1">收藏穿搭</button>
+                <button class="share-button flex-1">
+                    <i class="fas fa-share-alt share-icon"></i> 分享
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 轮播图逻辑
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        function showSlide(index) {
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            
+            document.querySelector('.carousel-inner').style.transform = `translateX(-${index * 100}%)`;
+            
+            // 更新指示器
+            indicators.forEach(ind => ind.classList.remove('active'));
+            indicators[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+        
+        // 自动轮播
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 3000);
+        
+        // 点击指示器切换轮播
+        indicators.forEach((ind, index) => {
+            ind.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+    </script>
+</body>
+</html> 

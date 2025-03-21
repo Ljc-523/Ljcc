@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOTD - 天气OOTD</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 页面特定样式 */
+        .weather-card {
+            background: linear-gradient(135deg, #6ab7ff, #4a90e2);
+            color: white;
+        }
+        
+        /* 动画效果 */
+        .weather-icon {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 温度线样式 */
+        .temp-line {
+            height: 2px;
+            background: linear-gradient(90deg, #ffb300, #4fc3f7);
+            margin: 6px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 微信小程序状态栏 -->
+    <div class="wx-status-bar">
+        <div class="text-center w-full">OOTD</div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="content-container">
+        <!-- 今日天气卡片 -->
+        <div class="card weather-card slide-up mb-4">
+            <div class="weather-today">
+                <div>
+                    <h2 class="text-white text-opacity-90 text-lg font-medium mb-1">北京市</h2>
+                    <div class="weather-temp">23°</div>
+                    <div class="weather-desc">晴朗</div>
+                </div>
+                <div class="weather-icon text-center">
+                    <i class="fas fa-sun fa-4x sunny"></i>
+                </div>
+            </div>
+            <div class="p-4 bg-white bg-opacity-20 rounded-lg mt-3">
+                <div class="flex justify-between text-sm">
+                    <span>湿度: 45%</span>
+                    <span>风速: 3km/h</span>
+                    <span>紫外线: 中等</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 近7日天气卡片 -->
+        <div class="card p-4 slide-up" style="animation-delay: 0.1s">
+            <h3 class="card-title">近7日天气</h3>
+            <div class="weekly-weather">
+                <div class="day-item">
+                    <div class="day-name">今天</div>
+                    <i class="fas fa-sun sunny"></i>
+                    <div class="day-temp">23°</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-name">周二</div>
+                    <i class="fas fa-cloud-sun sunny"></i>
+                    <div class="day-temp">25°</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-name">周三</div>
+                    <i class="fas fa-cloud cloudy"></i>
+                    <div class="day-temp">22°</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-name">周四</div>
+                    <i class="fas fa-cloud-rain rainy"></i>
+                    <div class="day-temp">19°</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-name">周五</div>
+                    <i class="fas fa-cloud-rain rainy"></i>
+                    <div class="day-temp">18°</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-name">周六</div>
+                    <i class="fas fa-cloud-sun sunny"></i>
+                    <div class="day-temp">21°</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-name">周日</div>
+                    <i class="fas fa-sun sunny"></i>
+                    <div class="day-temp">24°</div>
+                </div>
+            </div>
+            <div class="temp-line mt-3"></div>
+            <div class="flex justify-between text-xs text-gray-500 mt-2">
+                <span>16°</span>
+                <span>25°</span>
+            </div>
+        </div>
+
+        <!-- 今日穿搭风格卡片 -->
+        <div class="card p-4 slide-up" style="animation-delay: 0.2s">
+            <h3 class="card-title">今日穿搭风格</h3>
+            <p class="text-gray-600 text-sm mb-4">根据今日天气与您的个人喜好，选择一种穿搭风格</p>
+            
+            <div class="style-grid">
+                <div class="style-item" onclick="this.classList.toggle('selected')">温柔风</div>
+                <div class="style-item" onclick="this.classList.toggle('selected')">甜酷风</div>
+                <div class="style-item" onclick="this.classList.toggle('selected')">学院风</div>
+                <div class="style-item" onclick="this.classList.toggle('selected')">韩系简约风</div>
+                <div class="style-item" onclick="this.classList.toggle('selected')">运动休闲风</div>
+                <div class="style-item" onclick="this.classList.toggle('selected')">小香风</div>
+            </div>
+            
+            <button id="generate-btn" class="primary-btn w-full mt-4" onclick="showPopup()">
+                生成今日OOTD
+            </button>
+        </div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <div class="tab-item active">
+            <i class="tab-icon fas fa-tshirt"></i>
+            <span>OOTD</span>
+        </div>
+        <div class="tab-item" onclick="window.location.href='profile.html'">
+            <i class="tab-icon fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <!-- OOTD弹窗 -->
+    <div id="ootd-popup" class="popup">
+        <div class="popup-header">
+            <h3 class="font-medium">今日穿搭推荐</h3>
+            <span class="popup-close" onclick="hidePopup()">×</span>
+        </div>
+        <div class="popup-body">
+            <p class="text-gray-700 mb-4">
+                <b>根据今日天气（23°晴朗）和您的风格偏好，AI推荐：</b><br>
+                轻薄的浅色连衣裙搭配一件防晒开衫，既保持温柔气质又适合初夏天气。可以选择米色或淡蓝色系，搭配简约配饰增添精致感。
+            </p>
+            
+            <!-- 轮播图 -->
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="穿搭示例1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1589465885857-44edb59bbff2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="穿搭示例2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="穿搭示例3">
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="indicator active"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <button class="primary-btn w-full">保存到收藏</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 显示弹窗
+        function showPopup() {
+            document.getElementById('ootd-popup').classList.add('show');
+        }
+        
+        // 隐藏弹窗
+        function hidePopup() {
+            document.getElementById('ootd-popup').classList.remove('show');
+        }
+        
+        // 简单的轮播图逻辑
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        function showSlide(index) {
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            
+            document.querySelector('.carousel-inner').style.transform = `translateX(-${index * 100}%)`;
+            
+            // 更新指示器
+            indicators.forEach(ind => ind.classList.remove('active'));
+            indicators[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+        
+        // 自动轮播
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 3000);
+        
+        // 点击指示器切换轮播
+        indicators.forEach((ind, index) => {
+            ind.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+    </script>
+</body>
+</html> 
